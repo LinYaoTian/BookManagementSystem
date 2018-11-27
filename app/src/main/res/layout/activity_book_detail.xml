@@ -1,0 +1,214 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:focusable="true">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_act_book_detail"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_tip_detail_act_book_detail"
+            android:text="@string/book_detail"
+            android:textSize="@dimen/dimenTextSize"
+            android:textColor="@color/white"/>
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <ImageView
+        android:id="@+id/iv_cover_act_book_detail"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/book_image_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_act_book_detail" />
+
+    <TextView
+        android:id="@+id/tv_name_act_book_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="@dimen/bigger_text_size"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:singleLine="true"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/iv_cover_act_book_detail"
+        app:layout_constraintTop_toTopOf="@+id/iv_cover_act_book_detail"
+        tools:text="浮士愁" />
+
+    <TextView
+        android:id="@+id/tv_tip_author_act_book_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:text="@string/book_author"
+        android:textSize="@dimen/normal_text_size"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/tv_tip_location_act_book_detail"
+        app:layout_constraintStart_toStartOf="@+id/tv_name_act_book_detail" />
+
+    <TextView
+        android:id="@+id/tv_author_act_book_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_tip_author_act_book_detail"
+        app:layout_constraintEnd_toEndOf="@+id/tv_name_act_book_detail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_tip_author_act_book_detail"
+        app:layout_constraintTop_toTopOf="@+id/tv_tip_author_act_book_detail"
+        tools:text="罗浮散客" />
+
+    <TextView
+        android:id="@+id/tv_tip_isbn_act_book_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:textColor="@color/black"
+        android:text="@string/book_isbn"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/tv_tip_publishing_house_act_book_detail"
+        app:layout_constraintStart_toStartOf="@+id/tv_name_act_book_detail" />
+
+    <TextView
+        android:id="@+id/tv_isbn_act_book_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_tip_isbn_act_book_detail"
+        app:layout_constraintEnd_toEndOf="@+id/tv_name_act_book_detail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_tip_isbn_act_book_detail"
+        app:layout_constraintTop_toTopOf="@+id/tv_tip_isbn_act_book_detail"
+        tools:text="35a1sd56a1sd6a5" />
+
+    <TextView
+        android:id="@+id/tv_tip_publishing_house_act_book_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="@string/book_publishing_house"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_cover_act_book_detail"
+        app:layout_constraintStart_toStartOf="@+id/tv_tip_isbn_act_book_detail" />
+
+    <TextView
+        android:id="@+id/tv_publishing_house_act_book_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:singleLine="true"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_tip_publishing_house_act_book_detail"
+        app:layout_constraintEnd_toEndOf="@+id/tv_name_act_book_detail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_tip_publishing_house_act_book_detail"
+        app:layout_constraintTop_toTopOf="@+id/tv_tip_publishing_house_act_book_detail"
+        tools:text="电子工业出版社" />
+
+    <TextView
+        android:id="@+id/tv_tip_location_act_book_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginBottom="3dp"
+        android:text="@string/book_location"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/tv_tip_isbn_act_book_detail"
+        app:layout_constraintStart_toStartOf="@+id/tv_name_act_book_detail" />
+
+    <TextView
+        android:id="@+id/tv_location_act_book_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:singleLine="true"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_tip_location_act_book_detail"
+        app:layout_constraintEnd_toEndOf="@+id/tv_name_act_book_detail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_tip_location_act_book_detail"
+        app:layout_constraintTop_toTopOf="@+id/tv_tip_location_act_book_detail"
+        tools:text="78排6架" />
+
+    <View
+        android:id="@+id/view_did"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_cover_act_book_detail" />
+
+
+    <TextView
+        android:id="@+id/tv_tip_intro_act_book_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/book_intro"
+        android:textColor="@color/black"
+        android:textSize="@dimen/bigger_text_size"
+        app:layout_constraintStart_toStartOf="@+id/iv_cover_act_book_detail"
+        app:layout_constraintTop_toBottomOf="@+id/view_did" />
+
+    <ScrollView
+        android:id="@+id/sv_act_book_detail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tip_intro_act_book_detail">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/normal_text_size"
+            tools:text="	本书中阐述了关于十几个主要的社会热点问题的激辩，如堕胎、死刑、安乐死、同性婚姻、移民、毒品合法化……所有这些社会问题都存在着巨大的分歧和争议。作者沃勒以引人入胜的文字将多方观点和盘托出，逐渐带领读者以优雅适宜的心态去倾听各方观点，避免把辩论会变成谩骂。
+ 	辩论中陷阱重重，稻草人谬误、美德伦理学、偷换概念、妖魔化对手只能加剧对立双方的矛盾与冲突，而不是找到解决方案。作者认为站在批判性思维的角度去看待辩论双方的观点，并没有黑白和对错之分。辩论的真谛不在于辨明是非曲直，而在于缓和言论，避免曲解。辩论的最高境界不在于输赢高低，而在于发人深思，以开放的心态达成妥协。当我们在争论得面红耳赤的时候，却忘了辩论的初衷不是为了你死我活，而是为了解决问题。辩论中，我们需要的是言论的缓和和敌意的减少，坦诚而周全、礼貌而持重的思考以及解决问题的从容与优雅。"
+            android:id="@+id/tv_intro_act_book_detail"
+            />
+
+
+    </ScrollView>
+
+
+
+</android.support.constraint.ConstraintLayout>

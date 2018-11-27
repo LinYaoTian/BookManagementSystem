@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_search"
+        android:icon="@drawable/tab_search_grey"
+        android:title="@string/search" />
+
+    <item
+        android:id="@+id/tab_manage"
+        android:icon="@drawable/tab_manage_grey"
+        android:title="@string/manage" />
+
+    <item
+        android:id="@+id/tab_mine"
+        android:icon="@drawable/tab_mine_grey"
+        android:title="@string/mine" />
+
+
+
+</menu>

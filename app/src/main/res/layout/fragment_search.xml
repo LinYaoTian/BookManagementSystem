@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <EditText
+            android:id="@+id/et_search_fragment_search"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_et_search"
+            android:hint="@string/hint_search"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:singleLine="true"
+            android:focusable="false"
+            android:editable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_search_fragment_search"
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/iv_search_grey"
+            app:layout_constraintBottom_toBottomOf="@+id/et_search_fragment_search"
+            app:layout_constraintStart_toStartOf="@+id/et_search_fragment_search"
+            app:layout_constraintTop_toTopOf="@+id/et_search_fragment_search" />
+
+        <ImageView
+            android:id="@+id/iv_delete_fragment_search"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/iv_delete_blue"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/et_search_fragment_search"
+            app:layout_constraintEnd_toEndOf="@+id/et_search_fragment_search"
+            app:layout_constraintTop_toTopOf="@+id/et_search_fragment_search" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_hot_key_fragment_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/hot_key"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView_fragment_search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_hot_key_fragment_search"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/tagFlowLayout_fragment_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            app:max_select="-1" />
+    </ScrollView>
+
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>

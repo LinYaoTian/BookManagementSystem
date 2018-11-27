@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#007EFE</color>
+    <color name="colorPrimaryDark">#015bb9</color>
+    <color name="colorAccent">#007EFE</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="grey">#8a8a8a</color>
+    <color name="pink">#FF4081</color>
+
+    <!--首页-->
+    <color name="tab_unselected_TextColor">#8a8a8a</color>
+    <color name="tab_selected_TextColor">@color/colorPrimary</color>
+
+    <!--登录-->
+    <color name="bg_login_state_normal">#006BD8</color>
+    <color name="bg_login_state_pressed">#0167cf</color>
+</resources>

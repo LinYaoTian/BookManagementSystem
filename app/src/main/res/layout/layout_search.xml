@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary">
+
+    <EditText
+        android:id="@+id/et_search_layout_search"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="7dp"
+        android:imeOptions="actionSend"
+        android:background="@drawable/bg_et_search"
+        android:hint="@string/hint_search"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_cancel_layout_search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_search_layout_search"
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/iv_search_grey"
+        app:layout_constraintBottom_toBottomOf="@+id/et_search_layout_search"
+        app:layout_constraintStart_toStartOf="@+id/et_search_layout_search"
+        app:layout_constraintTop_toTopOf="@+id/et_search_layout_search" />
+
+    <ImageView
+        android:id="@+id/iv_delete_layout_search"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/iv_delete_blue"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/et_search_layout_search"
+        app:layout_constraintEnd_toEndOf="@+id/et_search_layout_search"
+        app:layout_constraintTop_toTopOf="@+id/et_search_layout_search" />
+
+    <TextView
+        android:id="@+id/tv_cancel_layout_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/cancel"
+        android:textColor="@color/white"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
