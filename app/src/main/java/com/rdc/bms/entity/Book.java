@@ -24,11 +24,8 @@ public class Book {
     //位置
     private String location;
 
-    //状态：已借出、闲置、损坏、仅供阅读
+    //状态：已借出：1、闲置：0
     private int state;
-
-    //还书时间
-    private String returnTime;
 
     //出版社
     private String publishingHouse;
@@ -71,14 +68,6 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn == null ? "" : isbn;
-    }
-
-    public String getReturnTime() {
-        return returnTime == null ? "" : returnTime;
-    }
-
-    public void setReturnTime(String returnTime) {
-        this.returnTime = returnTime == null ? "" : returnTime;
     }
 
     public String getName() {

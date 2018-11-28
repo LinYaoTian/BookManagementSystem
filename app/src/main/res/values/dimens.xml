@@ -3,7 +3,7 @@
     <!--全局-->
     <dimen name="btn_dimen_width">30dp</dimen>
     <dimen name="btn_dimen_height">30dp</dimen>
-    <dimen name="title_text_size">25sp</dimen>
+    <dimen name="title_text_size">21sp</dimen>
     <dimen name="normal_text_size">15sp</dimen>
     <dimen name="bigger_text_size">18sp</dimen>
 

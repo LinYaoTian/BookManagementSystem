@@ -55,8 +55,8 @@ public class MainActivity extends BaseActivity {
     protected void initData(Bundle savedInstanceState) {
         mFragmentList = new ArrayList<>();
         mFragmentList.add(HotKeyFragment.newInstance());
-        mFragmentList.add(MineFragment.newInstance());
         mFragmentList.add(ManageFragment.newInstance());
+        mFragmentList.add(MineFragment.newInstance());
     }
 
     @Override

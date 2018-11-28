@@ -22,5 +22,7 @@
     <string name="hot_key">热门搜索</string>
     <string name="cancel">取消</string>
     <string name="book_detail">书籍详情</string>
+    <string name="edit">编辑</string>
+    <string name="my_borrow_record">我的借阅记录</string>
 
 </resources>

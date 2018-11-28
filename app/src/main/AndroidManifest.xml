@@ -26,7 +26,9 @@
             android:name="com.rdc.bms.mvp.activity.MainActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.rdc.bms.mvp.activity.SearchActivity" />
-        <activity android:name="com.rdc.bms.mvp.activity.BookDetailActivity"></activity>
+        <activity android:name="com.rdc.bms.mvp.activity.BookDetailActivity" />
+        <activity android:name="com.rdc.bms.mvp.activity.MineDetailActivity" />
+        <activity android:name="com.rdc.bms.mvp.activity.BorrowRecordActivity"></activity>
     </application>
 
 </manifest>
