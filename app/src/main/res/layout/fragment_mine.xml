@@ -5,15 +5,24 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/layout_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="0dp" />
+
     <ImageView
         android:id="@+id/iv_avatar_fragment_mine"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/iv_avatar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/include" />
 
     <TextView
         android:id="@+id/tv_name_fragment_mine"
@@ -44,70 +53,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/iv_avatar_fragment_mine" />
 
-    <!--<View-->
-        <!--android:id="@+id/view"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="0.5dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:background="@color/black"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/iv_avatar_fragment_mine" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/tv_borrowRecord_fragment_mine"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:paddingStart="10dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:clickable="true"-->
-        <!--android:background="?attr/selectableItemBackground"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:text="@string/my_borrow_record"-->
-        <!--android:textColor="@color/black"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/view"-->
-        <!--tools:ignore="RtlSymmetry"-->
-        <!--android:focusable="true" />-->
-
-    <!--<View-->
-        <!--android:id="@+id/view_2"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="0.5dp"-->
-        <!--android:background="@color/black"-->
-        <!--app:layout_constraintEnd_toEndOf="@+id/view"-->
-        <!--app:layout_constraintStart_toStartOf="@+id/view"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/tv_borrowRecord_fragment_mine" />-->
-
-    <!--<ImageView-->
-        <!--android:id="@+id/iv_arrow_to_right_fragment_mine"-->
-        <!--android:layout_width="35dp"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--android:layout_marginBottom="5dp"-->
-        <!--android:focusable="false"-->
-        <!--android:clickable="false"-->
-        <!--android:src="@drawable/iv_arrow_to_right"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/tv_borrowRecord_fragment_mine"-->
-        <!--app:layout_constraintEnd_toEndOf="@+id/tv_borrowRecord_fragment_mine"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/tv_borrowRecord_fragment_mine" />-->
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_avatar_fragment_mine" />
 
     <Button
         android:id="@+id/btn_my_borrow_record_fragment"
         android:layout_width="0dp"
         android:layout_height="80dp"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="20dp"
         android:background="@drawable/bg_btn_pink"
         android:text="@string/my_borrow_record"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_avatar_fragment_mine" />
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
 </android.support.constraint.ConstraintLayout>

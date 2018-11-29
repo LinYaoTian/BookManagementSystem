@@ -24,5 +24,9 @@
     <string name="book_detail">书籍详情</string>
     <string name="edit">编辑</string>
     <string name="my_borrow_record">我的借阅记录</string>
+    <string name="major">专业</string>
+    <string name="userName">用户名</string>
+    <string name="sex">性别</string>
+    <string name="new_password">新密码</string>
 
 </resources>

@@ -1,8 +1,11 @@
 package com.rdc.bms.mvp.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rdc.bms.app.App;
@@ -21,6 +24,8 @@ public class MineFragment extends BaseFragment {
     Button mBtnEdit;
     @BindView(R.id.tv_name_fragment_mine)
     TextView mTvName;
+    @BindView(R.id.tv_title_layout_top)
+    TextView mTvTitle;
 
 
     public static MineFragment newInstance() {
@@ -42,6 +47,12 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        mTvTitle.setText("我的");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         mTvName.setText(App.getUser().getName());
     }
 

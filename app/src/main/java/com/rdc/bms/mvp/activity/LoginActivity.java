@@ -109,6 +109,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
 
     @Override
     public void loginError(String msg) {
-        showToast("登录失败！msg:"+msg);
+        showToast(msg);
     }
 }

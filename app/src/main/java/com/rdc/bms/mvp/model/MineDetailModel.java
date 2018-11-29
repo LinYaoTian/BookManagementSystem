@@ -1,42 +1,40 @@
 package com.rdc.bms.mvp.model;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
 import com.rdc.bms.app.App;
 import com.rdc.bms.config.Constants;
 import com.rdc.bms.dto.LoginDTO;
-import com.rdc.bms.mvp.contract.ILoginContract;
+import com.rdc.bms.entity.User;
+import com.rdc.bms.mvp.contract.IMineDetail;
 import com.rdc.bms.util.GsonUtil;
 import com.rdc.bms.util.OkHttpResultCallback;
 import com.rdc.bms.util.OkHttpUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.Map;
 
 import okhttp3.Call;
 
-public class LoginModel implements ILoginContract.Model {
+public class MineDetailModel implements IMineDetail.Model {
 
+    private IMineDetail.Presenter mPresenter;
 
-    private ILoginContract.Presenter mPresenter;
-
-    public LoginModel(ILoginContract.Presenter presenter){
+    public MineDetailModel(IMineDetail.Presenter presenter){
         mPresenter = presenter;
     }
 
     @Override
-    public void login(String account, String password, int type) {
-        String url = Constants.BASE_URL + "users/login?";
-        Map<String,String> map = new HashMap<>();
-        map.put("userId",account);
-        map.put("password",password);
-        map.put("type",type+"");
+    public void update(User user) {
+        String url = Constants.BASE_URL + "users/changeInfo";
+        HashMap<String,String> map = new HashMap<>();
+        map.put("userId",user.getUserId());
+        map.put("password",user.getPassword());
+        map.put("major",user.getMajor());
+        map.put("sex",user.getSex());
+        map.put("name",user.getName());
         OkHttpUtil.getInstance().postAsync(url, new OkHttpResultCallback() {
             @Override
             public void onError(Call call, Exception e) {
-                mPresenter.loginError(e.getMessage());
+                mPresenter.updateError(e.getMessage());
             }
 
             @Override
@@ -45,14 +43,13 @@ public class LoginModel implements ILoginContract.Model {
                     String s = new String(bytes,"UTF-8");
                     LoginDTO dto = GsonUtil.gsonToBean(s,LoginDTO.class);
                     if (dto.isSuccess()){
-                        App.setUser(dto.transform());
-                        mPresenter.loginSuccess();
+                        App.setUser(dto.getData());
+                        mPresenter.updateSuccess("更新个人信息成功！");
                     }else {
-                        mPresenter.loginError(dto.getMsg());
+                        mPresenter.updateError(dto.getMsg());
                     }
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
-                    mPresenter.loginError(e.getMessage());
                 }
             }
         },map);

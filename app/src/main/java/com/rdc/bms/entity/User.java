@@ -18,6 +18,9 @@ public class User {
     //性别
     private String sex;
 
+    //权限
+    private int permission;
+
     @Override
     public String toString() {
         return "User{" +
@@ -26,7 +29,16 @@ public class User {
                 ", password='" + password + '\'' +
                 ", major='" + major + '\'' +
                 ", sex='" + sex + '\'' +
+                ", permission=" + permission +
                 '}';
+    }
+
+    public int getPermission() {
+        return permission;
+    }
+
+    public void setPermission(int permission) {
+        this.permission = permission;
     }
 
     public String getPassword() {

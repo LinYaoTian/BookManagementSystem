@@ -6,6 +6,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="grey">#8a8a8a</color>
+    <color name="light_grey">#f4f4f4</color>
     <color name="pink">#FF4081</color>
 
     <!--首页-->

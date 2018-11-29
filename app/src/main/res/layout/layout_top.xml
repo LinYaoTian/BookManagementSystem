@@ -8,14 +8,15 @@
 
 
     <ImageView
-        android:id="@+id/tv_false_layout_top"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:id="@+id/iv_back_layout_top"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginStart="11dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/iv_false"
+        android:src="@drawable/iv_back"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,19 +31,20 @@
         android:textColor="@color/white"
         android:textSize="@dimen/title_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_false_layout_top"
+        app:layout_constraintStart_toEndOf="@+id/iv_back_layout_top"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.533"
-        tools:text="个人信息" />
+        tools:text="标题" />
 
     <ImageView
-        android:id="@+id/tv_true_layout_top"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:id="@+id/iv_true_layout_top"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
         android:layout_marginEnd="11dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/iv_true"
         android:clickable="true"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
