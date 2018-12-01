@@ -1,7 +1,7 @@
 package com.rdc.bms.mvp.model;
 
 import com.rdc.bms.config.Constants;
-import com.rdc.bms.dto.SearchDTO;
+import com.rdc.bms.dto.SearchBookDTO;
 import com.rdc.bms.mvp.contract.ISearchContract;
 import com.rdc.bms.util.GsonUtil;
 import com.rdc.bms.util.OkHttpResultCallback;
@@ -52,8 +52,8 @@ public class SearchModel implements ISearchContract.Model {
             public void onResponse(byte[] bytes) {
                 try {
                     String s = new String(bytes,"UTF-8");
-                    SearchDTO searchDTO = GsonUtil.gsonToBean(s,SearchDTO.class);
-                    if (searchDTO.transform().size() < OFFSET){
+                    SearchBookDTO searchBookDTO = GsonUtil.gsonToBean(s,SearchBookDTO.class);
+                    if (searchBookDTO.transform().size() < OFFSET){
                         //少于每一页约定的item数，则说明没有更多数据了
                         misNoneData = true;
                         if (mPage != 0){
@@ -63,7 +63,7 @@ public class SearchModel implements ISearchContract.Model {
                             mPresenter.getResultError("无数据！");
                         }
                     }
-                    mPresenter.getResultSuccess(searchDTO.transform(),!misNoneData);
+                    mPresenter.getResultSuccess(searchBookDTO.transform(),!misNoneData);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                     mPresenter.getResultError(e.getMessage());

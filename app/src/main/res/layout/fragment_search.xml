@@ -8,7 +8,10 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/et_search_fragment_search"
@@ -19,12 +22,12 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/bg_et_search"
+            android:editable="false"
+            android:focusable="false"
             android:hint="@string/hint_search"
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
             android:singleLine="true"
-            android:focusable="false"
-            android:editable="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

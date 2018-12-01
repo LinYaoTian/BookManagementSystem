@@ -5,6 +5,10 @@
 
     <!-- 允许联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 获取sd卡写的权限，用于文件上传和下载 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name="com.rdc.bms.app.App"
@@ -27,8 +31,23 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.rdc.bms.mvp.activity.SearchActivity" />
         <activity android:name="com.rdc.bms.mvp.activity.BookDetailActivity" />
-        <activity android:name="com.rdc.bms.mvp.activity.MineDetailActivity" />
-        <activity android:name="com.rdc.bms.mvp.activity.BorrowRecordActivity"></activity>
+        <activity android:name="com.rdc.bms.mvp.activity.InfoDetailActivity" />
+        <activity android:name="com.rdc.bms.mvp.activity.MyBorrowRecordActivity" />
+        <activity android:name="com.rdc.bms.mvp.activity.BookManageActivity" />
+        <activity android:name="com.rdc.bms.mvp.activity.ReaderManageActivity" />
+        <activity android:name="com.rdc.bms.mvp.activity.BorrowManageActivity"></activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.rdc.bms.util.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
     </application>
+
+
 
 </manifest>

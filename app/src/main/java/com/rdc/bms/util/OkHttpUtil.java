@@ -4,8 +4,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
-import com.rdc.bms.dto.SimpleResultDTO;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;

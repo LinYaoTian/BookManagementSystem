@@ -58,14 +58,41 @@
         tools:text="浮士愁" />
 
     <TextView
+        android:id="@+id/tv_tip_bookId_act_book_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:text="@string/book_id"
+        android:textColor="@color/black"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/tv_tip_location_act_book_detail"
+        app:layout_constraintStart_toStartOf="@+id/tv_tip_author_act_book_detail" />
+
+    <TextView
+        android:id="@+id/tv_bookId_act_book_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_tip_bookId_act_book_detail"
+        app:layout_constraintEnd_toEndOf="@+id/tv_name_act_book_detail"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tv_tip_bookId_act_book_detail"
+        app:layout_constraintTop_toTopOf="@+id/tv_tip_bookId_act_book_detail"
+        tools:text="14646" />
+
+
+    <TextView
         android:id="@+id/tv_tip_author_act_book_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
         android:text="@string/book_author"
-        android:textSize="@dimen/normal_text_size"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/tv_tip_location_act_book_detail"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/tv_tip_bookId_act_book_detail"
         app:layout_constraintStart_toStartOf="@+id/tv_name_act_book_detail" />
 
     <TextView

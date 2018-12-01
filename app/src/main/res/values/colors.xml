@@ -8,6 +8,8 @@
     <color name="grey">#8a8a8a</color>
     <color name="light_grey">#f4f4f4</color>
     <color name="pink">#FF4081</color>
+    <color name="green">#4caf50</color>
+    <color name="yellow">#ffa000</color>
 
     <!--首页-->
     <color name="tab_unselected_TextColor">#8a8a8a</color>

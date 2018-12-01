@@ -118,6 +118,11 @@ public abstract class BaseRvAdapter<C extends BaseRvCell> extends RecyclerView.A
         notifyItemRangeRemoved(start,count);
     }
 
+    public void update(int position,C cell){
+        mData.set(position,cell);
+        notifyItemChanged(position);
+    }
+
     /**
      * add a cell list
      * @param cells

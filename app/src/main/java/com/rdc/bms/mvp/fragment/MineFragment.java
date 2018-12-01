@@ -1,18 +1,15 @@
 package com.rdc.bms.mvp.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rdc.bms.app.App;
 import com.rdc.bms.base.BaseFragment;
 import com.rdc.bms.bookmanagementsystem.R;
-import com.rdc.bms.mvp.activity.BorrowRecordActivity;
-import com.rdc.bms.mvp.activity.MineDetailActivity;
+import com.rdc.bms.mvp.activity.MyBorrowRecordActivity;
+import com.rdc.bms.mvp.activity.InfoDetailActivity;
 
 import butterknife.BindView;
 
@@ -61,13 +58,13 @@ public class MineFragment extends BaseFragment {
         mBtnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MineDetailActivity.actionStart(mBaseActivity);
+                InfoDetailActivity.actionStart(mBaseActivity,null);
             }
         });
         mBtnBorrowRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BorrowRecordActivity.actionStart(mBaseActivity);
+                MyBorrowRecordActivity.actionStart(mBaseActivity);
             }
         });
     }

@@ -5,4 +5,5 @@ public class ItemType {
     public static final int BANNER_TYPE = 1;
     public static final int KEY_TYPE = 2;
     public static final int BORROW_RECORD_TYPE = 3;
+    public static final int READER_TYPE = 4;
 }

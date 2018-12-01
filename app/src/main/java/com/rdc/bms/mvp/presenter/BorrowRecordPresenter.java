@@ -16,21 +16,21 @@ public class BorrowRecordPresenter extends BasePresenter<IBorrowRecord.View> imp
     }
 
     @Override
-    public void getResultSuccess(List<BorrowRecord> list, boolean canLoadMore) {
+    public void getMyBorrowRecordSuccess(List<BorrowRecord> list, boolean canLoadMore) {
         if (isAttachView()){
-            getView().getResultSuccess(list, canLoadMore);
+            getView().getMyBorrowRecordSuccess(list, canLoadMore);
         }
     }
 
     @Override
-    public void getResultError(String msg) {
+    public void getMyBorrowRecordError(String msg) {
         if (isAttachView()){
-            getView().getResultError(msg);
+            getView().getMyBorrowRecordError(msg);
         }
     }
 
     @Override
-    public void getResult(String userId) {
-        mModel.getResult(userId);
+    public void getMyBorrowRecord(String userId) {
+        mModel.getMyBorrowRecord(userId);
     }
 }

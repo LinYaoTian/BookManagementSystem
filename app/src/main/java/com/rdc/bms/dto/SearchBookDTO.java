@@ -6,12 +6,12 @@ import com.rdc.bms.entity.Book;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchDTO extends BaseDTO<List<Book>> {
+public class SearchBookDTO extends BaseDTO<List<Book>> {
 
     private List<Book> data;
 
     public List<Book> getData() {
-        return data;
+        return data == null ? new ArrayList<Book>():data;
     }
 
     public void setData(List<Book> data) {
@@ -20,6 +20,6 @@ public class SearchDTO extends BaseDTO<List<Book>> {
 
     @Override
     public List<Book> transform() {
-        return data == null ? new ArrayList<Book>():data;
+        return getData();
     }
 }

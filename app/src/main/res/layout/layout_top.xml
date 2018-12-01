@@ -29,6 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:textColor="@color/white"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textSize="@dimen/title_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_back_layout_top"
@@ -37,7 +39,21 @@
         tools:text="标题" />
 
     <ImageView
-        android:id="@+id/iv_true_layout_top"
+        android:id="@+id/iv_option1_layout_top"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/iv_true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/iv_option2_layout_top"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_option2_layout_top"
         android:layout_width="27dp"
         android:layout_height="27dp"
         android:layout_marginEnd="11dp"

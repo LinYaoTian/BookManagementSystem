@@ -8,26 +8,34 @@ import com.rdc.bms.RvCell.BorrowRecordCell;
 import com.rdc.bms.easy_rv_adapter.base.BaseRvCell;
 import com.rdc.bms.easy_rv_adapter.fragment.AbsBaseFragment;
 import com.rdc.bms.entity.BorrowRecord;
-import com.rdc.bms.mvp.activity.BorrowRecordActivity;
+import com.rdc.bms.mvp.activity.MyBorrowRecordActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class BorrowRecordFragment extends AbsBaseFragment {
+public class MyBorrowRecordFragment extends AbsBaseFragment {
 
-    private BorrowRecordActivity mBorrowRecordActivity;
+    private MyBorrowRecordActivity mMyBorrowRecordActivity;
+
+
+    public static MyBorrowRecordFragment newInstance() {
+        MyBorrowRecordFragment fragment = new MyBorrowRecordFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mBorrowRecordActivity = (BorrowRecordActivity) context;
+        mMyBorrowRecordActivity = (MyBorrowRecordActivity) context;
     }
 
     @Override
     public void onRecyclerViewInitialized() {
         mSwipeRefreshLayout.setEnabled(false);
-        mBorrowRecordActivity.getData();
+        mMyBorrowRecordActivity.getData();
     }
 
     @Override
@@ -37,7 +45,7 @@ public class BorrowRecordFragment extends AbsBaseFragment {
 
     @Override
     public void onLoadMore() {
-        mBorrowRecordActivity.getData();
+        mMyBorrowRecordActivity.getData();
     }
 
     /**

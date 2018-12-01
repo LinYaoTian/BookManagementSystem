@@ -5,14 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.rdc.bms.mvp.activity.BorrowRecordActivity">
+    tools:context="com.rdc.bms.mvp.activity.ReaderManageActivity">
 
     <include layout="@layout/layout_top"/>
 
-    <fragment
-        android:id="@+id/borrowRecordFragment_act_borrow_record"
-        android:name="com.rdc.bms.mvp.fragment.BorrowRecordFragment"
+    <include layout="@layout/layout_search"/>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:id="@+id/container_act_book_manage"
+        >
+    </FrameLayout>
 
 </LinearLayout>

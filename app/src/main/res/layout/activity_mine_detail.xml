@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_grey"
-    tools:context="com.rdc.bms.mvp.activity.MineDetailActivity">
+    tools:context="com.rdc.bms.mvp.activity.InfoDetailActivity">
 
     <include
         android:id="@+id/include_layout_act_mine_detail"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/include_layout_act_mine_detail">
 
         <EditText
-            android:id="@+id/et_name_act_mine_detail"
+            android:id="@+id/et_name_act_info_detail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/editTextHeight"
             android:background="@drawable/bg_account_input"
@@ -40,6 +40,7 @@
             android:paddingStart="@dimen/editTextPadding"
             android:paddingEnd="@dimen/editTextPadding"
             android:singleLine="true"
+            android:maxLength="10"
             android:textColor="@color/black"
             android:textSize="@dimen/bigTextSize"
             tools:ignore="TextFields" />
@@ -59,13 +60,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_name_act_mine_detail">
             <EditText
-            android:id="@+id/et_major_act_mine_detail"
+            android:id="@+id/et_major_act_info_detail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/editTextHeight"
             android:background="@drawable/bg_account_input"
             android:gravity="center_vertical|start"
             android:hint="@string/major"
             android:inputType="text"
+            android:maxLength="20"
             android:paddingStart="@dimen/editTextPadding"
             android:paddingEnd="@dimen/editTextPadding"
             android:singleLine="true"
@@ -91,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/til_major_act_mine_detail">
 
     <EditText
-        android:id="@+id/et_sex_act_mine_detail"
+        android:id="@+id/et_sex_act_info_detail"
         android:layout_width="match_parent"
         android:layout_height="@dimen/editTextHeight"
         android:background="@drawable/bg_account_input"
@@ -101,6 +103,8 @@
         android:paddingStart="@dimen/editTextPadding"
         android:paddingEnd="@dimen/editTextPadding"
         android:singleLine="true"
+        android:maxLength="1"
+        android:digits="男女"
         android:textColor="@color/black"
         android:textSize="@dimen/bigTextSize"
         app:layout_constraintTop_toTopOf="parent"
@@ -123,18 +127,56 @@
         app:layout_constraintTop_toBottomOf="@+id/til_sex_act_mine_detail">
 
         <EditText
-            android:id="@+id/et_password_act_mine_detail"
+            android:id="@+id/et_password_act_info_detail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/editTextHeight"
             android:background="@drawable/bg_account_input"
             android:gravity="center_vertical|start"
             android:hint="@string/new_password"
             android:inputType="text"
+            android:maxLength="20"
             android:paddingStart="@dimen/editTextPadding"
             android:paddingEnd="@dimen/editTextPadding"
             android:singleLine="true"
             android:textColor="@color/black"
             android:textSize="@dimen/bigTextSize"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            tools:ignore="TextFields" />
+
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_userId_act_mine_detail"
+        android:layout_width="0dp"
+        android:visibility="invisible"
+        android:layout_height="@dimen/textInputLayoutHeight"
+        android:layout_marginStart="@dimen/editTextMargin"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/editTextMargin"
+        android:gravity="bottom"
+        android:theme="@style/TextInputLayoutTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_password_act_mine_detail"
+       >
+
+        <EditText
+            android:id="@+id/et_userId_act_info_detail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/editTextHeight"
+            android:background="@drawable/bg_account_input"
+            android:gravity="center_vertical|start"
+            android:hint="@string/account_number"
+            android:inputType="text"
+            android:maxLength="20"
+            android:paddingStart="@dimen/editTextPadding"
+            android:paddingEnd="@dimen/editTextPadding"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/bigTextSize"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             tools:ignore="TextFields" />
 
 

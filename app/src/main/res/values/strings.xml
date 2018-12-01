@@ -28,5 +28,17 @@
     <string name="userName">用户名</string>
     <string name="sex">性别</string>
     <string name="new_password">新密码</string>
+    <string name="reader_manage">读者管理</string>
+    <string name="borrow_and_return">借阅与还书</string>
+    <string name="book_manage">书籍管理</string>
+    <string name="book_id">书本ID：</string>
+    <string name="delete">删除</string>
+    <string name="update">修改</string>
+    <string name="borrow">借阅</string>
+    <string name="user_id">用户ID</string>
+    <string name="confirm">确认</string>
+    <string name="borrow_manage">借阅管理</string>
+    <string name="add_book">添加图书</string>
+    <string name="book_name">书名</string>
 
 </resources>

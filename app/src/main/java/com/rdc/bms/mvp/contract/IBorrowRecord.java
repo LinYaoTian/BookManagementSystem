@@ -6,17 +6,17 @@ import java.util.List;
 
 public interface IBorrowRecord {
     interface View{
-        void getResultSuccess(List<BorrowRecord> list, boolean canLoadMore);
-        void getResultError(String msg);
+        void getMyBorrowRecordSuccess(List<BorrowRecord> list, boolean canLoadMore);
+        void getMyBorrowRecordError(String msg);
     }
 
     interface Presenter{
-        void getResultSuccess(List<BorrowRecord> list,boolean canLoadMore);
-        void getResultError(String msg);
-        void getResult(String key);
+        void getMyBorrowRecordSuccess(List<BorrowRecord> list, boolean canLoadMore);
+        void getMyBorrowRecordError(String msg);
+        void getMyBorrowRecord(String key);
     }
 
     interface Model{
-        void getResult(String key);
+        void getMyBorrowRecord(String key);
     }
 }

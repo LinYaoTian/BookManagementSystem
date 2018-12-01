@@ -50,10 +50,10 @@ public class BorrowRecordCell extends BaseRvCell<BorrowRecord> {
             mTvTag.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.colorPrimary));
         }
         holder.setText(R.id.tv_bookName_cell_borrow_record,mData.getBookName());
-        holder.setText(R.id.tv_bookId_cell_borrow_record,mData.getBookId());
-        holder.setText(R.id.tv_bookName_cell_borrow_record,mData.getBookName());
-        holder.setText(R.id.tv_return_time_cell_borrow_record,mData.getReturnTime());
-        holder.setText(R.id.tv_borrow_time_cell_borrow_record,mData.getBorrowTime());
+        holder.setText(R.id.tv_bookId_cell_borrow_record,"书本ID："+mData.getBookId());
+        holder.setText(R.id.tv_userId_cell_borrow_record,"借书者ID："+mData.getUserId());
+        holder.setText(R.id.tv_return_time_cell_borrow_record,"还书时间："+mData.getReturnTime());
+        holder.setText(R.id.tv_borrow_time_cell_borrow_record,"借书时间："+mData.getBorrowTime());
 
     }
 }

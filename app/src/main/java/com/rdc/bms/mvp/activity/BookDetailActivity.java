@@ -34,6 +34,8 @@ public class BookDetailActivity extends BaseActivity {
     TextView mTvPublishingHouse;
     @BindView(R.id.tv_intro_act_book_detail)
     TextView mTvIntro;
+    @BindView(R.id.tv_bookId_act_book_detail)
+    TextView mTvBookId;
     @BindView(R.id.iv_cover_act_book_detail)
     ImageView mIvCover;
 
@@ -71,6 +73,7 @@ public class BookDetailActivity extends BaseActivity {
         mTvIntro.setText(mBook.getIntro());
         mTvIsbn.setText(mBook.getIsbn());
         mTvName.setText(mBook.getName());
+        mTvBookId.setText(mBook.getBookId());
         mTvLocation.setText(mBook.getLocation());
         mTvPublishingHouse.setText(mBook.getPublishingHouse());
         Glide.with(this).load(mBook.getCoverUrl()).into(mIvCover);
