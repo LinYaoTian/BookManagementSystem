@@ -1,6 +1,11 @@
 package com.rdc.bms.mvp.activity;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -22,8 +27,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
 
     @BindView(R.id.toolbar_act_login)
     Toolbar mToolbar;
-    @BindView(R.id.iv_change_account_type_act_login)
-    ImageView mIvChangeAccountType;
+//    @BindView(R.id.iv_change_account_type_act_login)
+//    ImageView mIvChangeAccountType;
     @BindView(R.id.et_username_act_login)
     EditText mEtUsername;
     @BindView(R.id.et_password_act_login)
@@ -39,6 +44,26 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.CAMERA}, 1);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 1:
+                for (int grantResult : grantResults) {
+                    if (grantResult != PackageManager.PERMISSION_GRANTED){
+                        showToast("请打开相应权限！否则无法使用本应用");
+                        finish();
+                    }
+                }
+                break;
+        }
+
     }
 
     @Override
@@ -87,19 +112,19 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
                 }
             }
         });
-        mIvChangeAccountType.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mAccountType == Constants.ACCOUNT_TYPE_READER){
-                    mAccountType = Constants.ACCOUNT_TYPE_MANAGER;
-                    mTvAccountType.setText(R.string.manager);
-                }else {
-                    mAccountType = Constants.ACCOUNT_TYPE_READER;
-                    mTvAccountType.setText(R.string.reader);
-                }
-                showToast("登录类型->"+mTvAccountType.getText().toString());
-            }
-        });
+//        mIvChangeAccountType.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (mAccountType == Constants.ACCOUNT_TYPE_READER){
+//                    mAccountType = Constants.ACCOUNT_TYPE_MANAGER;
+//                    mTvAccountType.setText(R.string.manager);
+//                }else {
+//                    mAccountType = Constants.ACCOUNT_TYPE_READER;
+//                    mTvAccountType.setText(R.string.reader);
+//                }
+//                showToast("登录类型->"+mTvAccountType.getText().toString());
+//            }
+//        });
     }
 
     @Override

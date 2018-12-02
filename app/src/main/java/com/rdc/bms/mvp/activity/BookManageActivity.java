@@ -1,22 +1,14 @@
 package com.rdc.bms.mvp.activity;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -47,16 +39,16 @@ import com.rdc.bms.util.ImageUtil;
 import com.rdc.bms.util.OkHttpResultCallback;
 import com.rdc.bms.util.OkHttpUtil;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import okhttp3.Call;
 
-import static com.rdc.bms.config.Constants.CUT_CAMERA_PICTURE;
-import static com.rdc.bms.config.Constants.CUT_GALLERY_PICTURE;
 import static com.rdc.bms.config.Constants.SHOW_PICTURE;
 
 public class BookManageActivity extends BaseActivity {
@@ -76,12 +68,13 @@ public class BookManageActivity extends BaseActivity {
 
     private BookManageFragment mBookManageFragment;
     private boolean misNoneData = false;
-    private int mAllReaderPage = -1;//显示全部书籍的Page
+    private int mAllBookPage = -1;//显示全部书籍的Page
     private AlertDialog mBookDialog;
-    private static final int ADD_BOOK_OPTION = 0;
-    private static final int UPDATE_BOOK_OPTION = 1;
-    private Uri mImageUri;
+    public static final int ADD_BOOK_OPTION = 0;
+    public static final int UPDATE_BOOK_OPTION = 1;
     private ImageView mIvCover;
+    private String mImagePath;
+    private boolean mIsChooseImage = false;
 
 
     @Override
@@ -193,8 +186,9 @@ public class BookManageActivity extends BaseActivity {
     }
 
 
-    private void showAddBookDialog(final int option, final Book book){
+    public void showAddBookDialog(final int option, final Book book){
         mBookDialog = new AlertDialog.Builder(this).show();
+        mBookDialog.setCancelable(false);
         //设置背景色为透明，解决设置圆角后有白色直角的问题
         Window window=mBookDialog.getWindow();
         if (window != null) {
@@ -222,25 +216,22 @@ public class BookManageActivity extends BaseActivity {
             etPublishingHouse.setText(book.getPublishingHouse());
             etIntro.setText(book.getIntro());
             tvTitle.setText("更新书籍信息");
+            mImagePath = book.getCoverUrl();
         }else if (option == ADD_BOOK_OPTION){
             tvTitle.setText("添加书籍");
         }
         mIvCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(BookManageActivity.this,
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(BookManageActivity.this,
-                            new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.CAMERA}, 1);
-                }else {
-                    choosePhoto();
-                }
+                ImageUtil.openPhoto(BookManageActivity.this);
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mBookDialog.dismiss();
+                mIsChooseImage = false;
+                mImagePath = "";
             }
         });
         btnOk.setOnClickListener(new View.OnClickListener() {
@@ -263,10 +254,12 @@ public class BookManageActivity extends BaseActivity {
                 b.setIntro(getString(etIntro));
                 b.setIsbn(getString(etIsbn));
                 b.setPublishingHouse(getString(etPublishingHouse));
-                b.setCoverUrl(book.getCoverUrl());
                 if (option == UPDATE_BOOK_OPTION){
+                    b.setCoverUrl(mIsChooseImage?mImagePath:book.getCoverUrl());
+                    b.setBookId(book.getBookId());
                     updateBook(b);
                 }else {
+                    b.setCoverUrl(mImagePath);
                     addBook(b);
                 }
             }
@@ -278,51 +271,45 @@ public class BookManageActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d("BookManageActivity", "onActivityResult: requestCode="+requestCode);
         switch (requestCode) {
-            case CUT_GALLERY_PICTURE:
-                if (resultCode == RESULT_OK) {
-                    ImageUtil.cropImageUri(BookManageActivity.this, data.getData(), mImageUri, 800, 400, SHOW_PICTURE);
-                }
-                break;
             case SHOW_PICTURE:
                 try {
                     //该uri是上一个Activity返回的
                     Uri imageUri = data.getData();
                     if(imageUri!=null) {
-                        Bitmap bit = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                        Log.i("bit", String.valueOf(bit));
-                        Glide.with(mIvCover.getContext()).load(imageUri).into(mIvCover);
+                        mImagePath = ImageUtil.formatUri(this,imageUri);
+                        if (mImagePath != null){
+                            mIsChooseImage = true;
+                            Glide.with(mIvCover.getContext()).load(imageUri).into(mIvCover);
+                        }else {
+                            showToast("获取图片路径失败！");
+                        }
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                break;
-            case CUT_CAMERA_PICTURE:
-                ImageUtil.cropImageUri(BookManageActivity.this, mImageUri, mImageUri, 800, 400, SHOW_PICTURE);
                 break;
             default:
                 break;
         }
     }
 
-    private void choosePhoto(){
-        Intent intentToPickPic = new Intent(Intent.ACTION_PICK, null);
-        // 如果限制上传到服务器的图片类型时可以直接写如："image/jpeg 、 image/png等的类型" 所有类型则写 "image/*"
-        intentToPickPic.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(intentToPickPic, SHOW_PICTURE);
-    }
-
-
-
-    public void addBook(Book book){
-        String url  = Constants.BASE_URL + "books/add";
+    private void updateBook(Book book){
+        String url  = Constants.BASE_URL + "books/update";
         Map<String,String> map = new HashMap<>();
         map.put("name",book.getName());
         map.put("isbn",book.getIsbn());
         map.put("location",book.getLocation());
         map.put("publishingHouse",book.getPublishingHouse());
         map.put("author",book.getAuthor());
-        map.put("coverUrl",book.getCoverUrl());
         map.put("intro",book.getIntro());
+        map.put("bookId",book.getBookId());
+        map.put("coverUrl",book.getCoverUrl());
+        List<File> fileList = new ArrayList<>();
+        if (mIsChooseImage){
+            fileList.add(new File(book.getCoverUrl()));
+        }
+
         OkHttpUtil.getInstance().postAsync(url, new OkHttpResultCallback() {
             @Override
             public void onError(Call call, Exception e) {
@@ -333,9 +320,15 @@ public class BookManageActivity extends BaseActivity {
             public void onResponse(byte[] bytes) {
                 try {
                     String s = new String(bytes,"UTF-8");
-                    SimpleDTO dto = GsonUtil.gsonToBean(s,SimpleDTO.class);
+                    SearchBookDTO dto = GsonUtil.gsonToBean(s,SearchBookDTO.class);
                     if (dto.isSuccess()){
-                        showToast("添加书籍成功！");
+                        mIsChooseImage = false;
+                        mImagePath = "";
+                        showToast("更新书籍成功！");
+                        if (dto.transform().size() > 0 ){
+                            mBookManageFragment.updateCurrentOptionalItem(dto.transform().get(0));
+                        }
+                        mBookDialog.dismiss();
                     }else {
                         showToast(dto.getMsg());
                     }
@@ -344,7 +337,49 @@ public class BookManageActivity extends BaseActivity {
                     showToast(e.getMessage());
                 }
             }
-        },map);
+        },map,fileList);
+
+    }
+
+    public void addBook(Book book){
+        String url  = Constants.BASE_URL + "books/add";
+        Map<String,String> map = new HashMap<>();
+        map.put("name",book.getName());
+        map.put("isbn",book.getIsbn());
+        map.put("location",book.getLocation());
+        map.put("publishingHouse",book.getPublishingHouse());
+        map.put("author",book.getAuthor());
+        map.put("intro",book.getIntro());
+        map.put("coverUrl",book.getCoverUrl());
+        List<File> fileList = new ArrayList<>();
+        if (mIsChooseImage){
+            fileList.add(new File(book.getCoverUrl()));
+        }
+        OkHttpUtil.getInstance().postAsync(url, new OkHttpResultCallback() {
+            @Override
+            public void onError(Call call, Exception e) {
+                showToast(e.getMessage());
+            }
+
+            @Override
+            public void onResponse(byte[] bytes) {
+                try {
+                    String s = new String(bytes,"UTF-8");
+                    SearchBookDTO dto = GsonUtil.gsonToBean(s,SearchBookDTO.class);
+                    if (dto.isSuccess()){
+                        mIsChooseImage = false;
+                        mImagePath = "";
+                        showToast("添加书籍成功！");
+                        mBookDialog.dismiss();
+                    }else {
+                        showToast(dto.getMsg());
+                    }
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    showToast(e.getMessage());
+                }
+            }
+        },map,fileList);
     }
 
     public void deleteBook(String bookId){
@@ -362,6 +397,7 @@ public class BookManageActivity extends BaseActivity {
                     SimpleDTO dto = GsonUtil.gsonToBean(s,SimpleDTO.class);
                     if (dto.isSuccess()){
                         showToast("删除书籍成功！");
+                        mBookManageFragment.removeCurrentOptionalItem();
                     }else {
                         showToast(dto.getMsg());
                     }
@@ -373,43 +409,8 @@ public class BookManageActivity extends BaseActivity {
         });
     }
 
-    public void updateBook(Book book){
-        String url  = Constants.BASE_URL + "books/update";
-        Map<String,String> map = new HashMap<>();
-        map.put("bookId",book.getBookId());
-        map.put("name",book.getName());
-        map.put("isbn",book.getIsbn());
-        map.put("location",book.getLocation());
-        map.put("publishingHouse",book.getPublishingHouse());
-        map.put("author",book.getAuthor());
-        map.put("coverUrl",book.getCoverUrl());
-        map.put("intro",book.getIntro());
-        OkHttpUtil.getInstance().postAsync(url, new OkHttpResultCallback() {
-            @Override
-            public void onError(Call call, Exception e) {
-                showToast(e.getMessage());
-            }
-
-            @Override
-            public void onResponse(byte[] bytes) {
-                try {
-                    String s = new String(bytes,"UTF-8");
-                    SimpleDTO dto = GsonUtil.gsonToBean(s,SimpleDTO.class);
-                    if (dto.isSuccess()){
-                        showToast("更新书籍信息成功！");
-                    }else {
-                        showToast(dto.getMsg());
-                    }
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                    showToast(e.getMessage());
-                }
-            }
-        },map);
-    }
-
     private void searchBook(String bookId){
-        String url = Constants.BASE_URL + "books/search?bookId="+bookId;
+        String url = Constants.BASE_URL + "books/searchByBookId?bookId="+bookId;
         OkHttpUtil.getInstance().getAsync(url, new OkHttpResultCallback() {
             @Override
             public void onError(Call call, Exception e) {
@@ -438,15 +439,15 @@ public class BookManageActivity extends BaseActivity {
         if (misNoneData){
             return;
         }
-        mAllReaderPage++;
-        String url = Constants.BASE_URL + "books/searchAll?page="+ mAllReaderPage;
+        mAllBookPage++;
+        String url = Constants.BASE_URL + "books/searchAll?page="+ mAllBookPage;
         OkHttpUtil.getInstance().getAsync(url, new OkHttpResultCallback() {
 
             @Override
             public void onError(Call call, Exception e) {
                 showToast(e.getMessage());
-                if (mAllReaderPage != 0){
-                    mAllReaderPage--;
+                if (mAllBookPage != 0){
+                    mAllBookPage--;
                 }
             }
 
@@ -461,20 +462,20 @@ public class BookManageActivity extends BaseActivity {
                             //少于每一页约定的item数，则说明没有更多数据了
                             misNoneData = true;
                             mBookManageFragment.setCanShowLoadMore(false);
-                            showToast(mAllReaderPage ==0 ? "无数据！":"没有更多数据了！");
+                            showToast(mAllBookPage ==0 ? "无数据！":"没有更多数据了！");
                         }
                         mBookManageFragment.appendResult(dto.transform());
                     }else {
                         showToast(dto.getMsg());
-                        if (mAllReaderPage != 0){
-                            mAllReaderPage--;
+                        if (mAllBookPage != 0){
+                            mAllBookPage--;
                         }
                     }
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                     showToast(e.getMessage());
-                    if (mAllReaderPage != 0){
-                        mAllReaderPage--;
+                    if (mAllBookPage != 0){
+                        mAllBookPage--;
                     }
                 }
             }
@@ -483,5 +484,10 @@ public class BookManageActivity extends BaseActivity {
 
     public static void actionStart(Context context){
         context.startActivity(new Intent(context,BookManageActivity.class));
+    }
+
+    public void clearFlag() {
+        misNoneData = false;
+        mAllBookPage = -1;
     }
 }

@@ -65,13 +65,15 @@ public class BookManageFragment extends AbsBaseFragment {
 
     @Override
     public void onRecyclerViewInitialized() {
-        mSwipeRefreshLayout.setEnabled(false);
         mBookManageActivity.searchAllBook();
     }
 
     @Override
     public void onPullRefresh() {
-
+        mBaseAdapter.clear();
+        mData.clear();
+        mBookManageActivity.clearFlag();
+        mBookManageActivity.searchAllBook();
     }
 
     @Override
@@ -82,12 +84,14 @@ public class BookManageFragment extends AbsBaseFragment {
 
 
     public void hideList(){
+        mSwipeRefreshLayout.setEnabled(false);
         mData.clear();
         mData.addAll(mBaseAdapter.getData());
         mBaseAdapter.clear();
     }
 
     public void showList(){
+        mSwipeRefreshLayout.setEnabled(true);
         mBaseAdapter.clear();
         mBaseAdapter.addAll(mData);
         mData.clear();
@@ -115,6 +119,7 @@ public class BookManageFragment extends AbsBaseFragment {
     }
 
     public void appendResult(List<Book> list){
+        mSwipeRefreshLayout.setRefreshing(false);
         List<BaseRvCell> readerCellList = new ArrayList<>();
         for (final Book book : list) {
             BookCell cell = new BookCell(book);
@@ -142,7 +147,6 @@ public class BookManageFragment extends AbsBaseFragment {
             @Override
             public void onClick(View v) {
                 mBookManageActivity.deleteBook(book.getBookId());
-                mBaseAdapter.remove(position);
                 mCustomPopWindow.dissmiss();
             }
         });
@@ -150,7 +154,7 @@ public class BookManageFragment extends AbsBaseFragment {
             @Override
             public void onClick(View v) {
                 mCurrentPosition = position;
-//                InfoDetailActivity.actionStartForResult(ReaderManageFragment.this,user);
+                mBookManageActivity.showAddBookDialog(BookManageActivity.UPDATE_BOOK_OPTION,book);
                 mCustomPopWindow.dissmiss();
             }
         });
@@ -161,5 +165,26 @@ public class BookManageFragment extends AbsBaseFragment {
                 .setBgDarkAlpha(0.7f)
                 .create()
                 .showAsDropDown(view,view.getWidth()/2,-view.getHeight());
+    }
+
+    public void updateCurrentOptionalItem(final Book book){
+        BookCell cell = new BookCell(book);
+        cell.setListener(new OnClickViewRvListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+            }
+
+            @Override
+            public void onClickItem(BaseRvViewHolder holder, int position) {
+                showMenu(holder.itemView,book,position);
+            }
+        });
+        mBaseAdapter.update(mCurrentPosition,cell);
+
+    }
+
+    public void removeCurrentOptionalItem(){
+        mBaseAdapter.remove(mCurrentPosition);
     }
 }

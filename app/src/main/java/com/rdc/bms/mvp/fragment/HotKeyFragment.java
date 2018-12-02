@@ -61,10 +61,10 @@ public class HotKeyFragment extends BaseFragment {
 
     @Override
     protected void initData(Bundle bundle) {
-        String[] strings = {"基础知识","基本概念",
-                "四大组件","按时打算打撒是的",
-                "asdasdasdas","d啊山东i爱上了D啊",
-                "ABC","asdasd"};
+        String[] strings = {"Python","科技",
+                "科学","数学",
+                "计算机","心理",
+                "旅行","的","人","哲学","中国","西方"};
         list.addAll(Arrays.asList(strings));
         Log.d("SF2", "initData: "+list.size());
     }

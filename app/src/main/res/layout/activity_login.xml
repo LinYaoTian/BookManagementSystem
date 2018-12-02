@@ -19,20 +19,20 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ImageView
-        android:id="@+id/iv_change_account_type_act_login"
-        android:layout_width="@dimen/btn_dimen_height"
-        android:layout_height="@dimen/btn_dimen_height"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="true"
-        android:src="@drawable/iv_change_account_type"
-        android:background="?attr/selectableItemBackground"
-        app:layout_constraintBottom_toTopOf="@+id/iv_app_ic"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar_act_login"
-        app:layout_constraintTop_toTopOf="@+id/toolbar_act_login"
-        android:focusable="true" />
+    <!--<ImageView-->
+        <!--android:id="@+id/iv_change_account_type_act_login"-->
+        <!--android:layout_width="@dimen/btn_dimen_height"-->
+        <!--android:layout_height="@dimen/btn_dimen_height"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:clickable="true"-->
+        <!--android:src="@drawable/iv_change_account_type"-->
+        <!--android:background="?attr/selectableItemBackground"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/iv_app_ic"-->
+        <!--app:layout_constraintEnd_toEndOf="@+id/toolbar_act_login"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/toolbar_act_login"-->
+        <!--android:focusable="true" />-->
 
     <TextView
         android:id="@+id/tv_account_type_act_login"
@@ -41,7 +41,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/reader"
+        android:text="客户端"
         android:textColor="@color/white"
         android:textSize="@dimen/bigTextSize"
         app:layout_constraintEnd_toEndOf="parent"

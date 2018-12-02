@@ -86,7 +86,12 @@ public class OkHttpUtil {
      * 异步的post请求
      */
     public void postAsync(String url, OkHttpResultCallback okHttpResultCallback, Map<String, String> params, List<File> files) {
-        Request request = buildPostRequest(url, params, files);
+        Request request;
+        if (files == null || files.size()==0){
+            request = buildPostRequest(url,params);
+        }else {
+            request = buildPostRequest(url, params, files);
+        }
         deliveryResult(okHttpResultCallback, request);
     }
 

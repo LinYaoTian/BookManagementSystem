@@ -10,13 +10,16 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
+import com.rdc.bms.app.App;
 import com.rdc.bms.base.BaseActivity;
 import com.rdc.bms.base.BaseFragment;
 import com.rdc.bms.base.BasePresenter;
 import com.rdc.bms.bookmanagementsystem.R;
+import com.rdc.bms.config.Constants;
 import com.rdc.bms.mvp.fragment.ManageFragment;
 import com.rdc.bms.mvp.fragment.MineFragment;
 import com.rdc.bms.mvp.fragment.HotKeyFragment;
+import com.rdc.bms.mvp.fragment.TipFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +58,8 @@ public class MainActivity extends BaseActivity {
     protected void initData(Bundle savedInstanceState) {
         mFragmentList = new ArrayList<>();
         mFragmentList.add(HotKeyFragment.newInstance());
-        mFragmentList.add(ManageFragment.newInstance());
+        mFragmentList.add(App.getUser().getPermission() == Constants.ACCOUNT_TYPE_MANAGER ?
+                ManageFragment.newInstance() : TipFragment.newInstance());
         mFragmentList.add(MineFragment.newInstance());
     }
 
