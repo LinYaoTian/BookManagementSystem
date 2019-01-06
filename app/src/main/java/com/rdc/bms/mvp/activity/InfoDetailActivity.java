@@ -92,7 +92,7 @@ public class InfoDetailActivity extends BaseActivity<InfoDetailPresenter> implem
     protected void initView() {
         if (mInComingUser != null){
             //查看别人的个人信息
-            mTvTitle.setText("读者ID:"+ mInComingUser.getName());
+            mTvTitle.setText("读者ID:"+ mInComingUser.getUserId());
             mEtPassword.setText(mInComingUser.getPassword());
             mEtName.setText(mInComingUser.getName());
             mEtMajor.setText(mInComingUser.getMajor());
@@ -138,7 +138,18 @@ public class InfoDetailActivity extends BaseActivity<InfoDetailPresenter> implem
                 }else {
                     mResultUser.setPassword(getString(mEtPassword));
                 }
-
+                //添加读者
+                if (isForAddReader){
+                    if (TextUtils.isEmpty(getString(mEtUserId))){
+                        showToast("帐号不能为空！");
+                        return;
+                    }else {
+                        mResultUser.setUserId(getString(mEtUserId));
+                    }
+                    presenter.add(mResultUser);
+                    return;
+                }
+                //更新信息
                 if (mInComingUser == null){
                     //自己
                     mResultUser.setUserId(App.getUser().getUserId());
@@ -147,16 +158,7 @@ public class InfoDetailActivity extends BaseActivity<InfoDetailPresenter> implem
                     //他人
                     mResultUser.setUserId(mInComingUser.getUserId());
                     presenter.update(mResultUser);
-                }
-                if (isForAddReader){
-                    //添加读者
-                    if (TextUtils.isEmpty(getString(mEtUserId))){
-                        showToast("帐号不能为空！");
-                        return;
-                    }else {
-                        mResultUser.setUserId(getString(mEtUserId));
-                    }
-                    presenter.add(mResultUser);
+
                 }
 
             }

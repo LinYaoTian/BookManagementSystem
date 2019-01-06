@@ -2,14 +2,20 @@ package com.rdc.bms.mvp.activity;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,6 +43,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     Button mBtnLogin;
     @BindView(R.id.tv_account_type_act_login)
     TextView mTvAccountType;
+    @BindView(R.id.tv_setting_act_login)
+    TextView mTvSetting;
 
     private int mAccountType = Constants.ACCOUNT_TYPE_READER;
 
@@ -44,11 +52,39 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        settingIp();
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.CAMERA}, 1);
         }
+    }
+
+    private void settingIp() {
+        final AlertDialog dialog = new AlertDialog.Builder(this).show();
+        //设置背景色为透明，解决设置圆角后有白色直角的问题
+        Window window=dialog.getWindow();
+        if (window != null) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        View container = LayoutInflater.from(this).inflate(R.layout.dialog_setting_ip,null);
+        final EditText input = container.findViewById(R.id.et_setting_ip);
+        Button btnOk = container.findViewById(R.id.btn_ok_dialog_setting_ip);
+        Button btnCancel = container.findViewById(R.id.btn_cancel_dialog_setting_ip);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Constants.BASE_URL = getString(input);
+            }
+        });
+        dialog.setContentView(container);
     }
 
     @Override
@@ -112,19 +148,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
                 }
             }
         });
-//        mIvChangeAccountType.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (mAccountType == Constants.ACCOUNT_TYPE_READER){
-//                    mAccountType = Constants.ACCOUNT_TYPE_MANAGER;
-//                    mTvAccountType.setText(R.string.manager);
-//                }else {
-//                    mAccountType = Constants.ACCOUNT_TYPE_READER;
-//                    mTvAccountType.setText(R.string.reader);
-//                }
-//                showToast("登录类型->"+mTvAccountType.getText().toString());
-//            }
-//        });
+        mTvSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                settingIp();
+            }
+        });
     }
 
     @Override

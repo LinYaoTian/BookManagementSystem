@@ -5,7 +5,7 @@ public class Constants {
     public final static int ACCOUNT_TYPE_READER = 0;//读者
     public final static int ACCOUNT_TYPE_MANAGER = 1;//管理员
 
-    public final static String BASE_URL = "http://192.168.43.74:8000/";
+    public static String BASE_URL = "http://10.1.1.241:8000/";
 
     public final static int CUT_GALLERY_PICTURE = 1;
 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="15dp"
+    android:layout_margin="5dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+
+        <TextView
+            android:id="@+id/tv_setting_ip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="服务器IP地址"
+            android:textColor="@color/white"
+            android:textSize="@dimen/bigger_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_setting_ip"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/textInputLayoutHeight"
+            android:layout_margin="8dp"
+            android:gravity="bottom"
+            android:theme="@style/dialog_TextInputLayoutTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_setting_ip">
+
+            <EditText
+                android:id="@+id/et_setting_ip"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/editTextHeight"
+                android:background="@drawable/bg_account_input"
+                android:gravity="center_vertical|start"
+                android:paddingStart="@dimen/editTextPadding"
+                android:paddingEnd="@dimen/editTextPadding"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/bigTextSize" />
+
+
+        </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_ok_dialog_setting_ip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_btn_pink"
+        android:text="@string/confirm"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/til_setting_ip"
+        app:layout_constraintTop_toBottomOf="@+id/til_setting_ip" />
+
+    <Button
+        android:id="@+id/btn_cancel_dialog_setting_ip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_btn_pink"
+        android:text="@string/cancel"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_ok_dialog_setting_ip"
+        app:layout_constraintEnd_toStartOf="@+id/btn_ok_dialog_setting_ip"
+        app:layout_constraintTop_toTopOf="@+id/btn_ok_dialog_setting_ip" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v7.widget.CardView>

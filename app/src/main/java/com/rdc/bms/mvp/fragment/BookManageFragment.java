@@ -65,20 +65,17 @@ public class BookManageFragment extends AbsBaseFragment {
 
     @Override
     public void onRecyclerViewInitialized() {
-        mBookManageActivity.searchAllBook();
+        mSwipeRefreshLayout.setEnabled(false);
     }
 
     @Override
     public void onPullRefresh() {
-        mBaseAdapter.clear();
-        mData.clear();
-        mBookManageActivity.clearFlag();
-        mBookManageActivity.searchAllBook();
+
     }
 
     @Override
     public void onLoadMore() {
-        mBookManageActivity.searchAllBook();
+        mBookManageActivity.onLoadMore();
     }
 
 

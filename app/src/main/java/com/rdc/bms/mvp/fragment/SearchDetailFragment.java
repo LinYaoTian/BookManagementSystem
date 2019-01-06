@@ -69,20 +69,6 @@ public class SearchDetailFragment extends AbsBaseFragment {
 
     }
 
-    private void loadData() {
-        List<BaseRvCell> cellList = new ArrayList<>();
-        Book book = new Book();
-        book.setAuthor("林耀填");
-        book.setIntro("简介:没什么哈哈哈哈哈");
-        book.setCoverUrl("http://192.168.1.103:8000/static/book_imge_1.jpg");
-        book.setName("浮士德");
-        for (int i = 0; i < 5; i++) {
-            BookCell bookCell = new BookCell(book);
-            cellList.add(bookCell);
-        }
-        mBaseAdapter.addAll(cellList);
-    }
-
     @Override
     public void onPullRefresh() {
         //下拉刷新回调

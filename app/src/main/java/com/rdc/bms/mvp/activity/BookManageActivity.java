@@ -1,6 +1,7 @@
 package com.rdc.bms.mvp.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -65,9 +66,10 @@ public class BookManageActivity extends BaseActivity {
     EditText mEtSearch;
     @BindView(R.id.iv_delete_layout_search)
     ImageView mIvDelete;
+    @BindView(R.id.iv_option1_layout_top)
+    ImageView mIvShowAll;
 
     private BookManageFragment mBookManageFragment;
-    private boolean misNoneData = false;
     private int mAllBookPage = -1;//显示全部书籍的Page
     private AlertDialog mBookDialog;
     public static final int ADD_BOOK_OPTION = 0;
@@ -75,6 +77,12 @@ public class BookManageActivity extends BaseActivity {
     private ImageView mIvCover;
     private String mImagePath;
     private boolean mIsChooseImage = false;
+    private int mType = 0;
+    private int mPage = 0;
+
+    private boolean isShowALL = true;
+    private String mOldKey = "";
+    private int mOldType = mType;
 
 
     @Override
@@ -84,7 +92,7 @@ public class BookManageActivity extends BaseActivity {
 
     @Override
     protected int setLayoutResID() {
-        return R.layout.activity_reader_manage;
+        return R.layout.activity_book_manage;
     }
 
     @Override
@@ -99,12 +107,14 @@ public class BookManageActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mTvCancel.setVisibility(View.INVISIBLE);
+        mTvCancel.setText("书籍名");
         mTvTitle.setText("书籍管理");
+        mIvShowAll.setImageResource(R.drawable.iv_show_all);
+        mIvShowAll.setVisibility(View.VISIBLE);
         mIvAddBook.setVisibility(View.VISIBLE);
         mIvAddBook.setImageResource(R.drawable.iv_plus);
         mIvBack.setVisibility(View.VISIBLE);
-        mEtSearch.setHint("按书籍ID搜索书籍");
+        mEtSearch.setHint("按书籍名搜索");
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
@@ -119,6 +129,24 @@ public class BookManageActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
+        mTvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSelectDialog();
+            }
+        });
+        mIvShowAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEtSearch.setText("");
+                mPage = 0;
+                mAllBookPage = -1;
+                isShowALL = true;
+                mBookManageFragment.setCanShowLoadMore(true);
+                searchAllBook();
+                Toast.makeText(BookManageActivity.this, "显示全部书籍！", Toast.LENGTH_SHORT).show();
+            }
+        });
         mIvAddBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,7 +168,7 @@ public class BookManageActivity extends BaseActivity {
         });
         mEtSearch.addTextChangedListener(new TextWatcher() {
 
-            boolean isHidedList = false;
+//            boolean isHidedList = false;
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -155,19 +183,14 @@ public class BookManageActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (TextUtils.isEmpty(s)){
-                    mBookManageFragment.showList();
-                    isHidedList = false;
                     mIvDelete.setVisibility(View.INVISIBLE);
                 }else {
-                    if (!isHidedList){
-                        mBookManageFragment.hideList();
-                        isHidedList = true;
-                    }
                     mIvDelete.setVisibility(View.VISIBLE);
                 }
             }
         });
         mEtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
                 if (actionId == EditorInfo.IME_ACTION_SEND
@@ -175,14 +198,71 @@ public class BookManageActivity extends BaseActivity {
                         || (event != null
                         && KeyEvent.KEYCODE_ENTER == event.getKeyCode()
                         && KeyEvent.ACTION_DOWN == event.getAction())) {
-                    if (!TextUtils.isEmpty(getString(mEtSearch))){
-                        searchBook(getString(mEtSearch));
+                    isShowALL = false;
+                    String key = getString(mEtSearch);
+                    if (!TextUtils.isEmpty(key)){
+                        if (mOldKey.equals(key) && mOldType == mType){
+                            mPage++;
+                        }else {
+                            mPage = 0;
+                            mBookManageFragment.setCanShowLoadMore(true);
+                        }
+                        searchBook(key,mType,mPage);
+                        mOldKey = key;
+                        mOldType = mType;
+                    }else {
+                        Toast.makeText(BookManageActivity.this, "关键字不能为空！", Toast.LENGTH_SHORT).show();
                     }
                 }
                 return true;
             }
         });
 
+    }
+
+    public void onLoadMore(){
+            if (isShowALL){
+                searchAllBook();
+            }else {
+                mPage++;
+                searchBook(mOldKey,mOldType,mPage);
+            }
+    }
+
+    /**
+     * 选择搜索关键字的类型的Dialog
+     */
+    private void showSelectDialog(){
+        String[] items = {"书籍名","书籍ID","作者"};
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(this)
+                        .setItems(items, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which){
+                                    case 0:
+                                        mTvCancel.setText("书籍名");
+                                        mEtSearch.setHint("按书籍名搜索");
+                                        mType = 0;
+                                        dialog.dismiss();
+                                        break;
+                                    case 1:
+                                        //书籍ID
+                                        mTvCancel.setText("书籍ID");
+                                        mEtSearch.setHint("按书籍ID搜索");
+                                        mType = 1;
+                                        dialog.dismiss();
+                                        break;
+                                    case 2:
+                                        mTvCancel.setText("作者");
+                                        mEtSearch.setHint("按作者搜索");
+                                        mType = 2;
+                                        dialog.dismiss();
+                                        break;
+                                }
+                            }
+                        }).setTitle("选择");
+        builder.show();
     }
 
 
@@ -215,7 +295,7 @@ public class BookManageActivity extends BaseActivity {
             etLocation.setText(book.getLocation());
             etPublishingHouse.setText(book.getPublishingHouse());
             etIntro.setText(book.getIntro());
-            tvTitle.setText("更新书籍信息");
+            tvTitle.setText("书籍ID："+book.getBookId());
             mImagePath = book.getCoverUrl();
         }else if (option == ADD_BOOK_OPTION){
             tvTitle.setText("添加书籍");
@@ -409,8 +489,8 @@ public class BookManageActivity extends BaseActivity {
         });
     }
 
-    private void searchBook(String bookId){
-        String url = Constants.BASE_URL + "books/searchByBookId?bookId="+bookId;
+    private void searchBook(String key, int type, final int page){
+        String url = Constants.BASE_URL + "books/searchByKey?key="+key+"&page="+page+"&type="+type;
         OkHttpUtil.getInstance().getAsync(url, new OkHttpResultCallback() {
             @Override
             public void onError(Call call, Exception e) {
@@ -422,8 +502,18 @@ public class BookManageActivity extends BaseActivity {
                 try {
                     String s = new String(bytes,"UTF-8");
                     SearchBookDTO dto = GsonUtil.gsonToBean(s,SearchBookDTO.class);
+                    mBookManageFragment.hideLoadMore();
                     if (dto.isSuccess()){
-                        mBookManageFragment.setSearchResult(dto.getData());
+                        if (dto.transform().size() < 15){
+                            //少于每一页约定的item数，则说明没有更多数据了
+                            mBookManageFragment.setCanShowLoadMore(false);
+                            showToast(mAllBookPage ==0 ? "无数据！":"没有更多数据了！");
+                        }
+                        if (page == 0){
+                            mBookManageFragment.setSearchResult(dto.getData());
+                        }else {
+                            mBookManageFragment.appendResult(dto.getData());
+                        }
                     }else {
                         showToast(dto.getMsg());
                     }
@@ -436,9 +526,6 @@ public class BookManageActivity extends BaseActivity {
     }
 
     public void searchAllBook(){
-        if (misNoneData){
-            return;
-        }
         mAllBookPage++;
         String url = Constants.BASE_URL + "books/searchAll?page="+ mAllBookPage;
         OkHttpUtil.getInstance().getAsync(url, new OkHttpResultCallback() {
@@ -456,15 +543,20 @@ public class BookManageActivity extends BaseActivity {
                 try {
                     String s = new String(bytes,"UTF-8");
                     SearchBookDTO dto = GsonUtil.gsonToBean(s,SearchBookDTO.class);
+                    mBookManageFragment.hideLoadMore();
                     if (dto.isSuccess()){
-                        mBookManageFragment.hideLoadMore();
                         if (dto.transform().size() < 15){
                             //少于每一页约定的item数，则说明没有更多数据了
-                            misNoneData = true;
                             mBookManageFragment.setCanShowLoadMore(false);
                             showToast(mAllBookPage ==0 ? "无数据！":"没有更多数据了！");
                         }
-                        mBookManageFragment.appendResult(dto.transform());
+                        if (mAllBookPage == 0){
+                            mBookManageFragment.setSearchResult(dto.transform());
+                        }else {
+                            mBookManageFragment.appendResult(dto.transform());
+                        }
+
+
                     }else {
                         showToast(dto.getMsg());
                         if (mAllBookPage != 0){
@@ -484,10 +576,5 @@ public class BookManageActivity extends BaseActivity {
 
     public static void actionStart(Context context){
         context.startActivity(new Intent(context,BookManageActivity.class));
-    }
-
-    public void clearFlag() {
-        misNoneData = false;
-        mAllBookPage = -1;
     }
 }

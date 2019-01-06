@@ -19,6 +19,22 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <TextView
+        android:id="@+id/tv_setting_act_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="设置"
+        android:textColor="@color/white"
+        android:textSize="@dimen/bigger_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar_act_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar_act_login" />
+
     <!--<ImageView-->
         <!--android:id="@+id/iv_change_account_type_act_login"-->
         <!--android:layout_width="@dimen/btn_dimen_height"-->
